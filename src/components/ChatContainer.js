@@ -3,6 +3,7 @@ import socketIOClient from "socket.io-client";
 import ChatBoxReciever, { ChatBoxSender } from "./ChatBox";
 import InputText from "./InputText";
 import UserLogin from "./UserLogin";
+import "./ChatContainer.css"; // Import CSS file
 
 export default function ChatContainer() {
   let socketio = socketIOClient("http://localhost:5001");
@@ -41,7 +42,7 @@ export default function ChatContainer() {
 
   function ChatsList() {
     return (
-      <div style={{ height: "75vh", overflow: "scroll", overflowX: "hidden" }}>
+      <div className="chats-list">
         {chats.map((chat, index) => {
           if (chat.user === user)
             return (
@@ -70,18 +71,12 @@ export default function ChatContainer() {
     <div>
       {user ? (
         <div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
+          <div className="header">
             <h4>Username: {user}</h4>
             <strong>Chat App </strong>
             <p
               onClick={() => logout()}
-              style={{ color: "blue", cursor: "pointer" }}
+              className="logout-link" // Use className instead of style to apply styles from CSS file
             >
               Log Out
             </p>
@@ -94,9 +89,7 @@ export default function ChatContainer() {
         <UserLogin setUser={setUser} />
       )}
 
-      <div
-        style={{ margin: 10, display: "flex", justifyContent: "center" }}
-      ></div>
+      <div className="spacer" />
     </div>
   );
 }
